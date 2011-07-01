@@ -14,13 +14,9 @@ return array(
 	'active' => Config::get('environment'),
 
 	Fuel::DEVELOPMENT => array(
-		'type'			=> 'mysql',
+		'type'			=> 'pdo',
 		'connection'	=> array(
-			'hostname'   => 'localhost',
-			'database'   => 'fuel_dev',
-			'username'   => 'root',
-			'password'   => '',
-			'persistent' => false,
+			'dsn'   => 'pgsql:host=localhost;port=5432;dbname=malko;user=test;password=test',
 		),
 		'table_prefix' => '',
 		'charset'      => 'utf8',
