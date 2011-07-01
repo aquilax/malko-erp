@@ -41,16 +41,18 @@
 		<type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
 		<type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
 	</group>
-</datatypes><table x="516" y="156" name="product">
+</datatypes><table x="552" y="92" name="product">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<default>NULL</default><relation table="category" row="id" />
+</row>
 <row name="category_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="brand_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<default>NULL</default><relation table="brand" row="id" />
+</row>
 <row name="code" null="1" autoincrement="0">
 <datatype>VARCHAR(30)</datatype>
 <default>NULL</default></row>
@@ -63,8 +65,91 @@
 <row name="body" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
-<row name="active" null="1" autoincrement="0">
+<row name="status_id" null="1" autoincrement="0">
 <datatype>SMALLINT</datatype>
+<default>NULL</default></row>
+<row name="created" null="1" autoincrement="0">
+<datatype>TIMESTAMP WITHOUT TIME ZONE</datatype>
+<default>CURRENT_TIMESTAMP</default></row>
+<row name="updated" null="1" autoincrement="0">
+<datatype>TIMESTAMP WITH TIME ZONE</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="760" y="92" name="category">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="category_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="category" row="id" />
+</row>
+<row name="ename" null="1" autoincrement="0">
+<datatype>VARCHAR(50)</datatype>
+<default>NULL</default></row>
+<row name="status_id" null="1" autoincrement="0">
+<datatype>SMALLINT</datatype>
+<default>1</default></row>
+<row name="created" null="1" autoincrement="0">
+<datatype>TIMESTAMP WITHOUT TIME ZONE</datatype>
+<default>CURRENT_TIMESTAMP</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="761" y="267" name="brand">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="ename" null="1" autoincrement="0">
+<datatype>VARCHAR(30)</datatype>
+<default>NULL</default></row>
+<row name="status_id" null="1" autoincrement="0">
+<datatype>SMALLINT</datatype>
+<default>1</default></row>
+<row name="created" null="1" autoincrement="0">
+<datatype>TIMESTAMP WITHOUT TIME ZONE</datatype>
+<default>CURRENT_TIMESTAMP</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="371" y="253" name="pricelist">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="ename" null="1" autoincrement="0">
+<datatype>VARCHAR(50)</datatype>
+<default>NULL</default></row>
+<row name="status_id" null="1" autoincrement="0">
+<datatype>SMALLINT</datatype>
+<default>NULL</default></row>
+<row name="created" null="1" autoincrement="0">
+<datatype>TIMESTAMP WITHOUT TIME ZONE</datatype>
+<default>CURRENT_TIMESTAMP</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="372" y="93" name="price">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="pricelist_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="pricelist" row="id" />
+</row>
+<row name="product_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="product" row="id" />
+</row>
+<row name="price" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="updated" null="1" autoincrement="0">
+<datatype>TIMESTAMP WITHOUT TIME ZONE</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
