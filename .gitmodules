@@ -1,0 +1,3 @@
+[submodule "fuel"]
+	path = fuel
+	url = git://github.com/fuel/fuel.git
