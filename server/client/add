@@ -1,0 +1,16 @@
+{
+  f:[
+    {
+      l: 'Name',
+      v: '',
+      h: 'Client name',
+      x: 'required|string[100]',
+    },
+    {
+      l: 'Phone',
+      v: '',
+      h: 'Client phone number',
+      x: 'required|string[15]',
+    },
+  ]
+}

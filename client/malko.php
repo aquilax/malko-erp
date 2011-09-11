@@ -3,6 +3,10 @@
 define ('LIST_CONTROLLERS', '_/list_controllers');
 
 abstract class M_Connection{
+  
+  public $error = '';
+  protected $config = array();
+
   abstract protected function get($request);
   abstract protected function post($request);
   abstract protected function put($request);
@@ -17,8 +21,11 @@ class M_HTTPConnection extends M_Connection{
   }
 
   function _createUrl($request){
-    $r = $request['controller'];
-    return $r;
+    $r = array();
+    $r[] = $this->config['base_url'];
+    $r[] = $request['controller'];
+    $r[] = $request['method'];
+    return implode('/', $r);
   }
 
   function get($request){
@@ -47,7 +54,7 @@ class Malko {
   function __construct($argv){
     $this->argv = $argv;
     $this->getSettings();
-    $this->connection = new M_HTTPConnection(array());
+    $this->connection = new M_HTTPConnection(array('base_url' => 'http://localhost:8000'));
   }
 
   function getSettings(){
@@ -60,7 +67,17 @@ class Malko {
     }
   }
 
-  function getTemplate(){}
+  function getTemplate(){
+    $request = array(
+      'controller' => 'client',
+      'method' => 'add',
+    );
+    $template = $this->connection->get($request);
+    if (!$template){
+      print($this->connection->error.PHP_EOL);
+      exit(1);
+    }
+  }
 
   function createFile(){
     $this->file_name = tempnam('/tmp', 'MALKO_');
