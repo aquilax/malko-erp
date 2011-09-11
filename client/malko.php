@@ -42,6 +42,7 @@ class Malko {
   private $argv = array();
   private $controller = '';
   private $method = '';
+  private $file_name = '/tmp/test';
 
   function __construct($argv){
     $this->argv = $argv;
@@ -59,8 +60,44 @@ class Malko {
     }
   }
 
+  function getTemplate(){}
+
+  function createFile(){
+    $this->file_name = tempnam('/tmp', 'MALKO_');
+    $handle = fopen($this->file_name, 'w');
+    fwrite($handle, '# MALKO ERP FILE');
+    fclose($handle);
+  }
+
+  function validFile(){
+    return TRUE;
+  }
+
+  function processFile(){}
+
+  function editFile($file_name){
+    $cmd = '/usr/bin/editor '.escapeshellarg($file_name).' > `tty`';
+    system($cmd, $result);
+    return $result;
+  }
+
+  function submitData(){}
+
+  function clearFile(){
+    unlink($this->file_name);
+  }
+
   function run(){
     $this->getOptions();
+    $this->getTemplate();
+    $this->createFile();
+    do {
+      $this->processFile();
+      $this->editFile($this->file_name);
+    } while (!$this->validFile());
+    $this->submitData();
+    $this->clearFile();
+    exit(0);
   }
 }
 
