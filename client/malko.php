@@ -77,12 +77,25 @@ class Malko {
       print($this->connection->error.PHP_EOL);
       exit(1);
     }
+    return $template;
   }
 
-  function createFile(){
-    $this->file_name = tempnam('/tmp', 'MALKO_');
+  function processTemplate($template){
+    $this->template = json_decode($template, TRUE);
+    $text = '';
+    foreach ($this->template['f'] as $row){
+      $text .= $row['l'].': '.$row['v'];
+      $text .= '  #'.$row['h'];
+      $text .= PHP_EOL;
+    }
+    return $text;
+  }
+  
+  function createFile($template){
+    $text = $this->processTemplate($template);
+    $this->file_name = tempnam('/tmp', 'MALKO_').'.yml';
     $handle = fopen($this->file_name, 'w');
-    fwrite($handle, '# MALKO ERP FILE');
+    fwrite($handle, $text);
     fclose($handle);
   }
 
@@ -106,8 +119,8 @@ class Malko {
 
   function run(){
     $this->getOptions();
-    $this->getTemplate();
-    $this->createFile();
+    $template = $this->getTemplate();
+    $this->createFile($template);
     do {
       $this->processFile();
       $this->editFile($this->file_name);
