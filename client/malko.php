@@ -54,7 +54,7 @@ class Malko {
   function __construct($argv){
     $this->argv = $argv;
     $this->getSettings();
-    $this->connection = new M_HTTPConnection(array('base_url' => 'http://localhost:8000'));
+    $this->connection = new M_HTTPConnection(array('base_url' => 'http://localhost/server/index.php'));
   }
 
   function getSettings(){
